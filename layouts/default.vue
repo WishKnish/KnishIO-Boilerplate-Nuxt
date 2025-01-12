@@ -26,6 +26,8 @@ const links = [{
 </script>
 
 <template>
+  <UNotifications />
+
   <UHeader
     title="WishKnish"
     :links="links"

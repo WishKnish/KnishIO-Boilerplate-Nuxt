@@ -18,9 +18,32 @@ const authToken = computed(() => {
   return props.client?.getAuthToken()
 })
 
-const handleAuthorization = () => {
-  console.log(props.client)
-  props.client?.requestAuthToken({})
+const toast = useToast()
+
+const handleAuthorization = async () => {
+  try {
+    const response = await props.client?.requestAuthToken({})
+
+    if (response.success()) {
+      toast.add({
+        title: 'Success',
+        description: 'Authorization token has been successfully granted!',
+        icon: 'i-heroicons-check-circle'
+      })
+    } else {
+      toast.add({
+        title: 'Error',
+        description: response.error,
+        icon: 'i-heroicons-x-circle'
+      })
+    }
+  } catch (e) {
+    toast.add({
+      title: 'Error',
+      description: e.message,
+      icon: 'i-heroicons-x-circle'
+    })
+  }
   emit('input', authToken)
 }
 </script>
