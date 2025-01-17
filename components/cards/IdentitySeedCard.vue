@@ -1,29 +1,21 @@
 <script setup lang="ts">
 import { z } from 'zod'
-import GenericCard from "~/components/cards/GenericCard.vue";
-
-const emit = defineEmits(['input'])
+import GenericCard from "~/components/cards/GenericCard.vue"
 
 const schema = z.object({
-  seed: z.string()
+  seed: z.string().optional()
 })
 
-const state = reactive({
-  seed: undefined
+const { state, updateIdentity } = useKnishIO()
+
+const formState = reactive({
+  seed: state.seed
 })
 
-watch(() => state.seed, () => {
-  handleInput()
+// Watch for form changes and update KnishIO state
+watch(() => formState.seed, (newSeed) => {
+  updateIdentity(newSeed)
 })
-
-const handleInput = () => {
-  if(state.seed && state.seed.length > 0) {
-    emit('input', state.seed)
-  }
-  else {
-    emit('input', undefined)
-  }
-}
 </script>
 
 <template>
@@ -32,11 +24,11 @@ const handleInput = () => {
       description="All Knish.IO identities are based on a seed string. This seed string is used to generate a unique secret and signature hash for each user."
       icon="i-heroicons-key"
   >
-    <UForm :schema="schema" :state="state" class="space-y-4">
+    <UForm :schema="schema" :state="formState" class="space-y-4">
       <UFormGroup label="Seed String" name="seed">
         <UInput
+            v-model="formState.seed"
             placeholder="Enter your seed string here..."
-            v-model="state.seed"
         />
       </UFormGroup>
     </UForm>

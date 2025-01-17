@@ -1,32 +1,8 @@
+# components/cards/IdentitySecretCard.vue
 <script setup lang="ts">
-import GenericCard from "~/components/cards/GenericCard.vue";
-import {generateSecret} from "@wishknish/knishio-client-js/src";
+import GenericCard from "~/components/cards/GenericCard.vue"
 
-const emit = defineEmits(['input'])
-
-const props = defineProps({
-  seed: {
-    type: String
-  }
-})
-
-watch(() => props.seed, () => {
-  handleSeed()
-})
-
-const state = reactive({
-  secret: undefined
-})
-
-const handleSeed = () => {
-  if(props.seed && props.seed.length > 0) {
-    state.secret = generateSecret(props.seed)
-  }
-  else {
-    state.secret = undefined
-  }
-  emit('input', state.secret)
-}
+const { state } = useKnishIO()
 </script>
 
 <template>

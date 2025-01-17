@@ -1,31 +1,22 @@
 <script setup lang="ts">
 import { z } from 'zod'
-import GenericCard from "~/components/cards/GenericCard.vue";
-
-const emit = defineEmits(['input'])
+import GenericCard from "~/components/cards/GenericCard.vue"
 
 const schema = z.object({
   uri: z.string().url()
 })
 
-const defaultUri = 'https://eteplitsky.testnet.knish.io/graphql'
+const { state, setUri } = useKnishIO()
 
-const state = reactive({
-  uri: defaultUri
+const formState = reactive({
+  uri: state.uri
 })
 
-watch(() => state.uri, () => {
-  handleInput()
+watch(() => formState.uri, (newUri) => {
+  if (newUri && newUri.length > 0) {
+    setUri(newUri)
+  }
 })
-
-const handleInput = () => {
-  if(state.uri && state.uri.length > 0) {
-  }
-  else {
-    state.uri = defaultUri
-  }
-  emit('input', state.uri)
-}
 </script>
 
 <template>
@@ -34,9 +25,9 @@ const handleInput = () => {
       description="The Knish.IO SDK requires a connection URI to connect to the Knish.IO distributed ledger. This URI is used to establish a connection with an anchor node."
       icon="i-heroicons-link"
   >
-    <UForm :schema="schema" :state="state" class="space-y-4">
-      <UFormGroup label="Anchor Node URI" name="seed">
-        <UInput v-model="state.uri" />
+    <UForm :schema="schema" :state="formState" class="space-y-4">
+      <UFormGroup label="Anchor Node URI" name="uri">
+        <UInput v-model="formState.uri" />
       </UFormGroup>
     </UForm>
   </GenericCard>

@@ -1,32 +1,22 @@
+# components/cards/IdentityBundleCard.vue
 <script setup lang="ts">
-import GenericCard from "~/components/cards/GenericCard.vue";
-import {KnishIOClient} from "@wishknish/knishio-client-js/src";
+import GenericCard from "~/components/cards/GenericCard.vue"
 
-const emit = defineEmits(['input'])
+const { state, clientStatus } = useKnishIO()
 
-const props = defineProps({
-  client: {
-    type: KnishIOClient
+const statusMessage = computed(() => {
+  if (!state.seed) {
+    return 'Please enter a seed string to generate your identity bundle.'
   }
+  if (!state.bundle) {
+    return 'Generating bundle...'
+  }
+  return state.bundle
 })
 
-watch(() => props.client.$__bundle, () => {
-  handleBundle()
-})
-
-const state = reactive({
-  bundle: undefined
-})
-
-const handleBundle = () => {
-  if(props.client && props.client.hasBundle()) {
-    state.bundle = props.client.getBundle()
-  }
-  else {
-    state.bundle = undefined
-  }
-  emit('input', state.bundle)
-}
+const cardColor = computed(() =>
+    clientStatus.hasBundle ? 'primary' : 'teal'
+)
 </script>
 
 <template>
@@ -34,10 +24,31 @@ const handleBundle = () => {
       title="Identity Bundle"
       description="A Knish.IO bundle (also called a 'wallet bundle' or 'bundle hash') is a unique identifier that is used to reference a specific identity on the Knish.IO distributed ledger."
       icon="i-heroicons-user"
+      :color="cardColor"
   >
-    <UTextarea
-        :model-value="state.bundle"
-        placeholder="Please enter a seed string!"
-        disabled />
+    <div class="space-y-4">
+      <UTextarea
+          :model-value="statusMessage"
+          :disabled="true"
+          :ui="{
+          base: 'relative block w-full disabled:cursor-not-allowed disabled:opacity-100',
+          font: 'font-mono'
+        }"
+      />
+      <UBadge
+          v-if="clientStatus.hasBundle"
+          color="primary"
+          variant="solid"
+          label="Identity Ready"
+          icon="i-heroicons-check-circle"
+      />
+      <UBadge
+          v-else
+          color="gray"
+          variant="solid"
+          label="Awaiting Identity"
+          icon="i-heroicons-clock"
+      />
+    </div>
   </GenericCard>
 </template>

@@ -1,51 +1,15 @@
 <script setup lang="ts">
-import GenericCard from "~/components/cards/GenericCard.vue";
-import {KnishIOClient} from "@wishknish/knishio-client-js/src";
+import GenericCard from "~/components/cards/GenericCard.vue"
 
-const emit = defineEmits(['input'])
+const { state, requestAuth, canRequestAuth, clientStatus } = useKnishIO()
 
-const props = defineProps({
-  client: {
-    type: KnishIOClient
-  }
-})
+const buttonLabel = computed(() =>
+    canRequestAuth.value ? 'Request Authorization' : 'Please complete previous steps!'
+)
 
-const buttonEnabled = computed(() => {
-  return props.client?.hasBundle()
-})
-
-const authToken = computed(() => {
-  return props.client?.getAuthToken()
-})
-
-const toast = useToast()
-
-const handleAuthorization = async () => {
-  try {
-    const response = await props.client?.requestAuthToken({})
-
-    if (response.success()) {
-      toast.add({
-        title: 'Success',
-        description: 'Authorization token has been successfully granted!',
-        icon: 'i-heroicons-check-circle'
-      })
-    } else {
-      toast.add({
-        title: 'Error',
-        description: response.error,
-        icon: 'i-heroicons-x-circle'
-      })
-    }
-  } catch (e) {
-    toast.add({
-      title: 'Error',
-      description: e.message,
-      icon: 'i-heroicons-x-circle'
-    })
-  }
-  emit('input', authToken)
-}
+const cardColor = computed(() =>
+    clientStatus.isAuthorized ? 'primary' : 'teal'
+)
 </script>
 
 <template>
@@ -53,13 +17,35 @@ const handleAuthorization = async () => {
       title="Authorization Token"
       description="An authorization token is a temporary API key that is used to authenticate a client session with a Knish.IO anchor node. It must be requested via the Knish.IO client instance."
       icon="i-heroicons-viewfinder-circle"
+      :color="cardColor"
   >
-    <UInput :model-value="authToken ? authToken.getToken() : 'Client is unauthorized!'" disabled/>
-    <UButton
-        :label="buttonEnabled ? 'Request Authorization' : 'Please enter a seed string!'"
-        :disabled="!buttonEnabled"
-        icon="i-heroicons-arrow-right-end-on-rectangle"
-        @click="handleAuthorization"
-    />
+    <div class="space-y-4">
+      <UTextarea
+          :model-value="state.authToken ?? 'Client is unauthorized!'"
+          disabled
+          :ui="{
+          base: 'relative block w-full disabled:cursor-not-allowed disabled:opacity-100',
+          font: 'font-mono'
+        }"
+      />
+      <div class="flex justify-between items-center">
+        <template v-if="!clientStatus.isAuthorized">
+          <UButton
+              :label="buttonLabel"
+              :disabled="!canRequestAuth"
+              icon="i-heroicons-arrow-right-end-on-rectangle"
+              @click="requestAuth"
+          />
+        </template>
+        <template v-else>
+          <UBadge
+              color="primary"
+              variant="solid"
+              label="Authorized"
+              icon="i-heroicons-check-circle"
+          />
+        </template>
+      </div>
+    </div>
   </GenericCard>
 </template>
