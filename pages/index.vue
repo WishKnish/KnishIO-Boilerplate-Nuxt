@@ -5,7 +5,6 @@ import IdentityBundleCard from "~/components/cards/IdentityBundleCard.vue";
 import ConnectionUriCard from "~/components/cards/ConnectionUriCard.vue";
 import ConnectionCellCard from "~/components/cards/ConnectionCellCard.vue";
 import ConnectionAuthCard from "~/components/cards/ConnectionAuthCard.vue";
-
 </script>
 <template>
   <div>
@@ -41,6 +40,18 @@ import ConnectionAuthCard from "~/components/cards/ConnectionAuthCard.vue";
           <ConnectionAuthCard />
         </UPageGrid>
       </UDashboardSection>
+
+      <UDashboardSection
+          title="Step 3: Interact with the Ledger"
+          description="Once you have initialized your identity and connected to the Knish.IO API, you can start interacting with the Knish.IO distributed ledger. This includes querying the ledger for data, submitting new data, and updating existing data."
+          icon="i-heroicons-cube"
+      >
+        <UPageGrid>
+          sfds
+        </UPageGrid>
+      </UDashboardSection>
+
+
     </UPageBody>
   </div>
 </template>

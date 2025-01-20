@@ -6,7 +6,7 @@ const schema = z.object({
   cell: z.string()
 })
 
-const { state, setCell } = useKnishIO()
+const { state, updateCell } = useKnishIO()
 
 const formState = reactive({
   cell: state.cell
@@ -14,7 +14,7 @@ const formState = reactive({
 
 watch(() => formState.cell, (newCell) => {
   if (newCell && newCell.length > 0) {
-    setCell(newCell.toUpperCase())
+    updateCell(newCell.toUpperCase())
   }
 })
 </script>

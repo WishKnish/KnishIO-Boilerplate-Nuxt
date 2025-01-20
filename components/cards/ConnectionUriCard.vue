@@ -6,7 +6,7 @@ const schema = z.object({
   uri: z.string().url()
 })
 
-const { state, setUri } = useKnishIO()
+const { state, updateUri } = useKnishIO()
 
 const formState = reactive({
   uri: state.uri
@@ -14,7 +14,7 @@ const formState = reactive({
 
 watch(() => formState.uri, (newUri) => {
   if (newUri && newUri.length > 0) {
-    setUri(newUri)
+    updateUri(newUri)
   }
 })
 </script>
