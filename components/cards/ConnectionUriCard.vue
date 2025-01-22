@@ -2,16 +2,25 @@
 import { z } from 'zod'
 import GenericCard from "~/components/cards/GenericCard.vue"
 
+const { state, updateUri } = useKnishIO()
+
+/**
+ * Schema for the Connection URI card
+ */
 const schema = z.object({
   uri: z.string().url()
 })
 
-const { state, updateUri } = useKnishIO()
-
+/**
+ * Default state for the form
+ */
 const formState = reactive({
   uri: state.uri
 })
 
+/**
+ * Watch for changes to the URI state and update the form state
+ */
 watch(() => formState.uri, (newUri) => {
   if (newUri && newUri.length > 0) {
     updateUri(newUri)

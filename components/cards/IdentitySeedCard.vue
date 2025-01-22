@@ -2,17 +2,25 @@
 import { z } from 'zod'
 import GenericCard from "~/components/cards/GenericCard.vue"
 
+const { state, updateIdentity } = useKnishIO()
+
+/**
+ * Schema for the Identity Seed card
+ */
 const schema = z.object({
   seed: z.string().optional()
 })
 
-const { state, updateIdentity } = useKnishIO()
-
+/**
+ * Default state for the form
+ */
 const formState = reactive({
   seed: state.seed
 })
 
-// Watch for form changes and update KnishIO state
+/**
+ * Watch for form changes and update KnishIO state
+*/
 watch(() => formState.seed, (newSeed) => {
   updateIdentity(newSeed)
 })

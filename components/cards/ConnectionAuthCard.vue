@@ -3,13 +3,20 @@ import GenericCard from "~/components/cards/GenericCard.vue"
 
 const { state, requestAuth, canRequestAuth, clientStatus } = useKnishIO()
 
-const buttonLabel = computed(() =>
-    canRequestAuth.value ? 'Request Authorization' : 'Please complete previous steps!'
-)
+/**
+ * Loading state for the request
+ */
+const loading = ref(false)
 
-const cardColor = computed(() =>
-    clientStatus.isAuthorized ? 'primary' : 'teal'
-)
+/**
+ * Handle the request for an authorization token
+ */
+const handleAuthRequest = async () => {
+  loading.value = true
+  await requestAuth()
+  loading.value = false
+}
+
 </script>
 
 <template>
@@ -17,7 +24,7 @@ const cardColor = computed(() =>
       title="Authorization Token"
       description="An authorization token is a temporary API key that is used to authenticate a client session with a Knish.IO anchor node. It must be requested via the Knish.IO client instance."
       icon="i-heroicons-viewfinder-circle"
-      :color="cardColor"
+      :color="clientStatus.hasAuthToken ? 'green' : 'red'"
   >
     <div class="space-y-4">
       <UTextarea
@@ -29,17 +36,26 @@ const cardColor = computed(() =>
         }"
       />
       <div class="flex justify-between items-center">
-        <template v-if="!clientStatus.isAuthorized">
+        <template v-if="!clientStatus.hasAuthToken">
           <UButton
-              :label="buttonLabel"
+              v-if="canRequestAuth"
+              label="Request Auth Token"
               :disabled="!canRequestAuth"
+              :loading="loading"
               icon="i-heroicons-arrow-right-end-on-rectangle"
-              @click="requestAuth"
+              @click="handleAuthRequest"
+          />
+          <UBadge
+              v-else
+              color="orange"
+              variant="solid"
+              label="Awaiting Identity"
+              icon="i-heroicons-clock"
           />
         </template>
         <template v-else>
           <UBadge
-              color="primary"
+              color="green"
               variant="solid"
               label="Authorized"
               icon="i-heroicons-check-circle"

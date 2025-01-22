@@ -5,6 +5,7 @@ import IdentityBundleCard from "~/components/cards/IdentityBundleCard.vue";
 import ConnectionUriCard from "~/components/cards/ConnectionUriCard.vue";
 import ConnectionCellCard from "~/components/cards/ConnectionCellCard.vue";
 import ConnectionAuthCard from "~/components/cards/ConnectionAuthCard.vue";
+import MetaQueryCard from "~/components/cards/MetaQueryCard.vue";
 </script>
 <template>
   <div>
@@ -47,7 +48,7 @@ import ConnectionAuthCard from "~/components/cards/ConnectionAuthCard.vue";
           icon="i-heroicons-cube"
       >
         <UPageGrid>
-          sfds
+          <MetaQueryCard />
         </UPageGrid>
       </UDashboardSection>
 

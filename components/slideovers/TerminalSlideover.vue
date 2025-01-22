@@ -1,35 +1,52 @@
 <script setup lang="ts">
 import { ref, watch, nextTick } from 'vue'
 
+const slideover = useSlideover()
+
 const props = defineProps<{
   logs: Array<{ timestamp: Date | string, type: 'info' | 'error' | 'success', message: string }>
 }>()
 
-const slideover = useSlideover()
-
+/**
+ * Reference to the terminal element
+ */
 const terminalRef = ref<HTMLDivElement | null>(null)
 
-// Auto-scroll to bottom when new logs are added
+/**
+ * Watch for changes to the logs and scroll to the end of the terminal
+ */
 watch(props.logs, async () => {
   await nextTick()
   scrollToEnd()
 }, { deep: true })
 
+/**
+ * Scroll to the end of the terminal
+ */
 const scrollToEnd = () => {
   if (terminalRef.value) {
     terminalRef.value.scrollTop = terminalRef.value.scrollHeight
   }
 }
 
+/**
+ * Mount the component and scroll to the end of the terminal
+ */
 onMounted(async () => {
   await nextTick()
   scrollToEnd()
 })
 
+/**
+ * Toggle the slideover closed
+ */
 const toggleOpen = () => {
   slideover.close()
 }
 
+/**
+ * Get the log class based on the type
+ */
 const getLogClass = (type: 'info' | 'error' | 'success') => {
   switch (type) {
     case 'error':
@@ -38,16 +55,6 @@ const getLogClass = (type: 'info' | 'error' | 'success') => {
       return 'text-green-500'
     default:
       return 'text-gray-300'
-  }
-}
-
-const formatTimestamp = (timestamp: Date | string | undefined) => {
-  if (!timestamp) return ''
-  try {
-    const date = timestamp instanceof Date ? timestamp : new Date(timestamp)
-    return date.toLocaleTimeString()
-  } catch (e) {
-    return ''
   }
 }
 </script>

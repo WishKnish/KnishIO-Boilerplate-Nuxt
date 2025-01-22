@@ -2,16 +2,25 @@
 import { z } from 'zod'
 import GenericCard from "~/components/cards/GenericCard.vue"
 
+const { state, updateCell } = useKnishIO()
+
+/**
+ * Schema for the Cell Slug card
+ */
 const schema = z.object({
   cell: z.string()
 })
 
-const { state, updateCell } = useKnishIO()
-
+/**
+ * Default state for the form
+ */
 const formState = reactive({
   cell: state.cell
 })
 
+/**
+ * Watch for changes to the cell state and update the form state
+ */
 watch(() => formState.cell, (newCell) => {
   if (newCell && newCell.length > 0) {
     updateCell(newCell.toUpperCase())

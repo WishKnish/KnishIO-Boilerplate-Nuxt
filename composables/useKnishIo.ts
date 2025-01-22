@@ -36,9 +36,6 @@ export const useKnishIO = () => {
     const toast = useToast()
     const terminalLogs = useTerminalLogs()
 
-    // Log initialization
-    terminalLogs.addLog('KnishIO client initialized', 'info')
-
     const handleError = (message: string, error: Error) => {
         state.error = `${message}: ${error.message}`
         terminalLogs.addLog(`${message}: ${error.message}`, 'error')
@@ -52,7 +49,6 @@ export const useKnishIO = () => {
     // Update identity-related state
     const updateIdentity = (seed: string | undefined) => {
         try {
-            terminalLogs.addLog('Updating identity...', 'info')
             if (seed && seed.length > 0) {
                 const newSecret = generateSecret(seed)
                 state.seed = seed
@@ -60,7 +56,9 @@ export const useKnishIO = () => {
                 state.client.setSecret(newSecret)
                 state.bundle = state.client.getBundle()
                 state.isReady = true
-                terminalLogs.addLog(`Identity updated successfully. Bundle: ${state.bundle}`, 'success')
+                terminalLogs.addLog(`Identity updated successfully with seed: ${state.seed}`, 'success')
+                terminalLogs.addLog(`Resulting Secret: ${state.secret}`, 'info')
+                terminalLogs.addLog(`Resulting Bundle: ${state.bundle}`, 'info')
             } else {
                 state.seed = undefined
                 state.secret = undefined
@@ -99,11 +97,10 @@ export const useKnishIO = () => {
     const updateCell = (cell: string) => {
         if (cell && cell !== state.client.getCellSlug()) {
             try {
-                terminalLogs.addLog(`Updating cell to: ${cell}`, 'info')
                 const normalizedCell = cell.toUpperCase()
                 state.client.setCellSlug(normalizedCell)
                 state.cell = normalizedCell
-                terminalLogs.addLog('Cell updated successfully', 'success')
+                terminalLogs.addLog(`Updating cell to: ${normalizedCell}`, 'success')
             } catch (e) {
                 handleError('Failed to set cell', e as Error)
                 state.cell = state.client.getCellSlug()
@@ -137,6 +134,37 @@ export const useKnishIO = () => {
         }
     }
 
+    // Query Meta Asset
+    const metaQuery = async (metaType: string, metaId: string, filter: Array<Object> = [], latest: boolean = true) => {
+        if (!state.client.hasBundle()) {
+            handleError('Meta Asset query failed', new Error('Client not initialized'))
+            return
+        }
+
+        terminalLogs.addLog('Querying Meta Asset...', 'info')
+        try {
+            const response = await state.client.queryMeta({
+                metaType,
+                metaId,
+                filter,
+                latest
+            })
+            if (response) {
+                terminalLogs.addLog(`Meta Asset query found ${ response.instances.length } items`, 'success')
+                toast.add({
+                    title: 'Success',
+                    description: `Meta Asset query found ${ response.instances.length } items`,
+                    icon: 'i-heroicons-check-circle'
+                })
+                return response
+            } else {
+                handleError('Meta Asset query failed', new Error(response.error))
+            }
+        } catch (e) {
+            handleError('Meta Asset query failed', e as Error)
+        }
+    }
+
     // Reset all state
     const reset = () => {
         terminalLogs.addLog('Resetting KnishIO client...', 'info')
@@ -160,10 +188,13 @@ export const useKnishIO = () => {
     )
 
     const clientStatus = computed(() => ({
-        hasBundle: state.client.hasBundle(),
-        hasUri: !!state.client.getUri(),
-        hasCell: !!state.client.getCellSlug(),
-        isAuthorized: !!state.client.getAuthToken(),
+        hasSeed: !!state.seed,
+        hasSecret: !!state.secret,
+        hasBundle: !!state.bundle,
+        hasUri: !!state.uri,
+        hasCell: !!state.cell,
+        hasError: !!state.error,
+        hasAuthToken: !!state.authToken,
         isReady: state.isReady
     }))
 
@@ -173,6 +204,7 @@ export const useKnishIO = () => {
         updateUri,
         updateCell,
         requestAuth,
+        metaQuery,
         reset,
         canRequestAuth,
         clientStatus

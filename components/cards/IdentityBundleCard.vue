@@ -4,6 +4,9 @@ import GenericCard from "~/components/cards/GenericCard.vue"
 
 const { state, clientStatus } = useKnishIO()
 
+/**
+ * Automatically compute the status message based on the current state
+ */
 const statusMessage = computed(() => {
   if (!state.seed) {
     return 'Please enter a seed string to generate your identity bundle.'
@@ -13,10 +16,6 @@ const statusMessage = computed(() => {
   }
   return state.bundle
 })
-
-const cardColor = computed(() =>
-    clientStatus.hasBundle ? 'primary' : 'teal'
-)
 </script>
 
 <template>
@@ -24,7 +23,7 @@ const cardColor = computed(() =>
       title="Identity Bundle"
       description="A Knish.IO bundle (also called a 'wallet bundle' or 'bundle hash') is a unique identifier that is used to reference a specific identity on the Knish.IO distributed ledger."
       icon="i-heroicons-user"
-      :color="cardColor"
+      :color="clientStatus.hasBundle ? 'green' : 'orange'"
   >
     <div class="space-y-4">
       <UTextarea
@@ -37,14 +36,14 @@ const cardColor = computed(() =>
       />
       <UBadge
           v-if="clientStatus.hasBundle"
-          color="primary"
+          color="green"
           variant="solid"
           label="Identity Ready"
           icon="i-heroicons-check-circle"
       />
       <UBadge
           v-else
-          color="gray"
+          color="orange"
           variant="solid"
           label="Awaiting Identity"
           icon="i-heroicons-clock"

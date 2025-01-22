@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineProps, type PropType} from 'vue'
+import {type PropType} from 'vue'
 import type uiColors from "#ui-colors";
 
 defineProps({
@@ -9,15 +9,19 @@ defineProps({
   },
   description: {
     type: String,
-    default: null
+    default: undefined
   },
   icon: {
     type: String,
-    default: null
+    default: undefined
   },
   color: {
     type: String as PropType<typeof uiColors[number]>,
-    default: 'primary'
+    default: undefined
+  },
+  orientation: {
+    type: String as PropType<'horizontal' | 'vertical'>,
+    default: undefined
   }
 })
 
@@ -28,6 +32,7 @@ defineProps({
       :description="description"
       :icon="icon"
       :color="color"
+      :orientation="orientation"
   >
     <slot />
   </ULandingCard>
