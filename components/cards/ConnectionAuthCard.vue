@@ -25,6 +25,7 @@ const handleAuthRequest = async () => {
       description="An authorization token is a temporary API key that is used to authenticate a client session with a Knish.IO anchor node. It must be requested via the Knish.IO client instance."
       icon="i-heroicons-viewfinder-circle"
       :color="clientStatus.hasAuthToken ? 'green' : 'red'"
+      :loading="loading"
   >
     <div class="space-y-4">
       <UTextarea

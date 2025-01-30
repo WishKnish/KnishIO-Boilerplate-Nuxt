@@ -22,6 +22,10 @@ defineProps({
   orientation: {
     type: String as PropType<'horizontal' | 'vertical'>,
     default: undefined
+  },
+  loading: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -34,6 +38,11 @@ defineProps({
       :color="color"
       :orientation="orientation"
   >
+    <UProgress
+        v-if="loading"
+        animation="carousel"
+        class="absolute bottom-0 left-0 right-0"
+    />
     <slot />
   </ULandingCard>
 </template>

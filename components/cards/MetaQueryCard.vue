@@ -103,20 +103,22 @@ const queryMeta = async () => {
     title="Meta Query"
     description="Query the Knish.IO ledger to retrieve information about one or more Meta Assets."
     icon="i-heroicons-search-circle"
+    :loading="loading"
   >
-    <UProgress
-      v-if="loading"
-      animation="carousel"
-    />
     <UForm :schema="schema" :state="formState" class="space-y-4">
       <UFormGroup label="Meta Type" name="metaType">
-        <UInput v-model="formState.metaType" />
+        <UInput
+            v-model="formState.metaType"
+        />
       </UFormGroup>
       <UFormGroup label="Meta ID" name="metaId">
         <UInput v-model="formState.metaId" />
       </UFormGroup>
-      <UFormGroup label="Limit to latest instance only?" name="latest">
-        <UCheckbox v-model="formState.latest" />
+      <UFormGroup name="latest">
+        <UCheckbox
+            v-model="formState.latest"
+            label="Limit to latest instance only?"
+        />
       </UFormGroup>
       <UForm
           v-for="(item, count) in formState.filter"
