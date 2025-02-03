@@ -31,18 +31,34 @@ defineProps({
 
 </script>
 <template>
-  <ULandingCard
-      :title="title"
-      :description="description"
-      :icon="icon"
-      :color="color"
-      :orientation="orientation"
+  <UCard
+    class="relative"
   >
-    <UProgress
-        v-if="loading"
-        animation="carousel"
-        class="absolute bottom-0 left-0 right-0"
-    />
+    <template #header>
+      <UProgress
+          v-if="loading"
+          animation="carousel"
+          class="absolute bottom-0 left-0 right-0"
+      />
+      <div class="flex items-center space-x-4">
+        <UIcon
+            v-if="icon"
+            :name="icon"
+            class="text-2xl"
+        />
+        <h3 class="text-lg font-semibold">
+          {{ title }}
+        </h3>
+      </div>
+
+      <p
+        v-if="description"
+        class="text-sm text-gray-500"
+      >
+        {{ description }}
+      </p>
+    </template>
+
     <slot />
-  </ULandingCard>
+  </UCard>
 </template>

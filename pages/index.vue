@@ -47,9 +47,9 @@ import MetaQueryCard from "~/components/cards/MetaQueryCard.vue";
           description="Once you have initialized your identity and connected to the Knish.IO API, you can start interacting with the Knish.IO distributed ledger. This includes querying the ledger for data, submitting new data, and updating existing data."
           icon="i-heroicons-cube"
       >
-        <UPageGrid>
+        <UGrid>
           <MetaQueryCard />
-        </UPageGrid>
+        </UGrid>
       </UDashboardSection>
 
 

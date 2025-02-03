@@ -102,7 +102,7 @@ const queryMeta = async () => {
   <GenericCard
     title="Meta Query"
     description="Query the Knish.IO ledger to retrieve information about one or more Meta Assets."
-    icon="i-heroicons-search-circle"
+    icon="i-heroicons-magnifying-glass-plus"
     :loading="loading"
   >
     <UForm :schema="schema" :state="formState" class="space-y-4">

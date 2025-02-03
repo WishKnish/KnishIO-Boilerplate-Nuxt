@@ -2,6 +2,7 @@
 
 import TerminalSlideover from "~/components/slideovers/TerminalSlideover.vue";
 import { useTerminalLogs } from '~/composables/useTerminalLogs'
+import GenericPageHeader from "~/components/cards/GenericPageHeader.vue";
 
 const { allLogs } = useTerminalLogs()
 const slideover = useSlideover()
@@ -9,55 +10,55 @@ function openTerminal() {
   slideover.open(TerminalSlideover, {logs: allLogs.value})
 }
 
-const links = [
+const menu = [
   {
-    label: 'Docs',
-    icon: 'i-heroicons-book-open',
-    to: '/getting-started'
-  },
-  {
-    label: 'Pro',
-    icon: 'i-heroicons-square-3-stack-3d',
-    to: '/pro',
+    name: 'Identity',
     children: [
       {
-        label: 'Pricing',
-        to: '/pro/pricing',
-        icon: 'i-heroicons-ticket',
-        description: 'A simple pricing, for solo developers or teams.'
+        name: 'Analytics',
+        description: 'Get a better understanding where your traffic is coming from',
+        href: '/analytics',
+        icon: 'i-heroicons-chart-pie',
       },
       {
-        label: 'Templates',
-        to: '/pro/templates',
-        icon: 'i-heroicons-computer-desktop',
-        description: 'Get started with one of our official templates.'
+        name: 'Engagement',
+        description: 'Speak directly to your customers with our engagement tool',
+        href: '/engagement',
+        icon: 'i-heroicons-cursor-arrow-rays',
+      },
+      { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: 'i-heroicons-fingerprint' },
+      {
+        name: 'Integrations',
+        description: 'Your customers’ data will be safe and secure',
+        href: '#',
+        icon: 'i-heroicons-squares-plus',
       }
+    ],
+    ctas: [
+      { name: 'Watch demo', href: '#', icon: 'i-heroicons-play-circle' },
+      { name: 'Contact sales', href: '#', icon: 'i-heroicons-phone' },
+      { name: 'View all products', href: '#', icon: 'i-heroicons-rectangle-group' },
     ]
   },
   {
-    label: 'Releases',
-    icon: 'i-heroicons-rocket-launch',
-    to: '/releases'
+    name: 'Open Terminal',
+    icon: 'i-heroicons-command-line',
+    onClick: openTerminal
+  },
+  {
+    name: 'Link Test',
+    href: 'https://google.com',
   }
 ]
 </script>
 
 <template>
   <UNotifications/>
-
-  <UHeader
-      title="WishKnish"
-      :links="links"
-  >
-    <template #right>
-      <UButton
-          icon="i-heroicons-command-line"
-          label="Open Terminal"
-          @click="openTerminal"
-      />
-    </template>
-  </UHeader>
-
+  <GenericPageHeader
+      title="Knish.IO SDK Boilerplate Tool"
+      class="mb-4"
+      :menu="menu"
+  />
   <UMain>
     <UPage>
       <slot/>
