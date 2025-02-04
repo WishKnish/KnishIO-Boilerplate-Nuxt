@@ -11,7 +11,13 @@ const props = defineProps({
 
 <template>
   <UPopover
-      :ui="{width: 'max-w-full'}"
+      :ui="{
+        width: 'w-full',
+        container: 'px-6'
+      }"
+      :popper="{
+        overflowPadding: 0
+      }"
   >
     <UButton
         :icon="item.icon"

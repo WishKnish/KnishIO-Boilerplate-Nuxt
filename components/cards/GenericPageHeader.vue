@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import {RouterLink} from "#vue-router";
 import GenericPageHeaderMenu from "~/components/cards/GenericPageHeaderMenu.vue";
-import GenericPageHeaderMobileMenu from "~/components/cards/GenericPageHeaderMobileMenu.vue";
+import GenericMobileMenuSlideover from "~/components/slideovers/GenericMobileMenuSlideover.vue";
 
 const props = defineProps({
   title: {
@@ -68,9 +68,11 @@ const mobileMenuOpen = ref(false)
         <a href="#" class="text-sm/6 font-semibold text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
       </div>
     </nav>
-    <GenericPageHeaderMobileMenu
-      :title="title"
-      :menu="menu"
+    <GenericMobileMenuSlideover
+        :title="title"
+        :menu="menu"
+        :open="mobileMenuOpen"
+        @close="mobileMenuOpen = false"
     />
   </header>
 </template>

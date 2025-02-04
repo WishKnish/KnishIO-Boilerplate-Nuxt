@@ -3,6 +3,7 @@
 import TerminalSlideover from "~/components/slideovers/TerminalSlideover.vue";
 import { useTerminalLogs } from '~/composables/useTerminalLogs'
 import GenericPageHeader from "~/components/cards/GenericPageHeader.vue";
+import GenericPageFooter from "~/components/cards/GenericPageFooter.vue";
 
 const { allLogs } = useTerminalLogs()
 const slideover = useSlideover()
@@ -26,7 +27,12 @@ const menu = [
         href: '/engagement',
         icon: 'i-heroicons-cursor-arrow-rays',
       },
-      { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: 'i-heroicons-fingerprint' },
+      {
+        name: 'Security',
+        description: 'Your customers’ data will be safe and secure',
+        href: '#',
+        icon: 'i-heroicons-fingerprint'
+      },
       {
         name: 'Integrations',
         description: 'Your customers’ data will be safe and secure',
@@ -54,30 +60,18 @@ const menu = [
 
 <template>
   <UNotifications/>
-  <GenericPageHeader
-      title="Knish.IO SDK Boilerplate Tool"
-      class="mb-4"
-      :menu="menu"
-  />
-  <UMain>
-    <UPage>
-      <slot/>
-    </UPage>
-  </UMain>
-
   <USlideovers/>
 
-  <UFooter :links="links">
-    <template #left>
-      Copyright © {{ new Date().getFullYear() }}
-    </template>
+  <GenericPageHeader
+      title="Knish.IO SDK Boilerplate Tool"
+      :menu="menu"
+  />
 
-    <template #right>
-      <UButton icon="i-simple-icons-x" color="gray" variant="ghost" to="https://x.com/nuxt_js" target="_blank"/>
-      <UButton icon="i-simple-icons-discord" color="gray" variant="ghost" to="https://discord.com/invite/ps2h6QT"
-               target="_blank"/>
-      <UButton icon="i-simple-icons-github" color="gray" variant="ghost" to="https://github.com/nuxt/nuxt"
-               target="_blank"/>
-    </template>
-  </UFooter>
+  <UContainer>
+    <slot/>
+  </UContainer>
+
+  <GenericPageFooter
+    :links="menu"
+  />
 </template>
