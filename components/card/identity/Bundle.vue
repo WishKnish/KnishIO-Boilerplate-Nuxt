@@ -1,6 +1,6 @@
 # components/cards/IdentityBundleCard.vue
 <script setup lang="ts">
-import GenericCard from "~/components/cards/GenericCard.vue"
+import Generic from "~/components/card/Generic.vue"
 
 const { state, clientStatus } = useKnishIO()
 
@@ -19,7 +19,7 @@ const statusMessage = computed(() => {
 </script>
 
 <template>
-  <GenericCard
+  <Generic
       title="Identity Bundle"
       description="A Knish.IO bundle (also called a 'wallet bundle' or 'bundle hash') is a unique identifier that is used to reference a specific identity on the Knish.IO distributed ledger."
       icon="i-heroicons-user"
@@ -49,5 +49,5 @@ const statusMessage = computed(() => {
           icon="i-heroicons-clock"
       />
     </div>
-  </GenericCard>
+  </Generic>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { z } from 'zod'
-import GenericCard from "~/components/cards/GenericCard.vue"
+import Generic from "~/components/card/Generic.vue"
 
 const { state, updateUri } = useKnishIO()
 
@@ -29,7 +29,7 @@ watch(() => formState.uri, (newUri) => {
 </script>
 
 <template>
-  <GenericCard
+  <Generic
       title="Connection Parameters"
       description="The Knish.IO SDK requires a connection URI to connect to the Knish.IO distributed ledger. This URI is used to establish a connection with an anchor node."
       icon="i-heroicons-link"
@@ -39,5 +39,5 @@ watch(() => formState.uri, (newUri) => {
         <UInput v-model="formState.uri" />
       </UFormGroup>
     </UForm>
-  </GenericCard>
+  </Generic>
 </template>

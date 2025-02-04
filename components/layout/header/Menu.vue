@@ -1,6 +1,6 @@
 <script setup>
-import GenericHeaderMenuPopover from "~/components/layout/GenericHeaderMenuPopover.vue";
-import GenericHeaderMenuLink from "~/components/layout/GenericHeaderMenuLink.vue";
+import GenericHeaderMenuPopover from "~/components/layout/header/menu/Popover.vue";
+import GenericHeaderMenuLink from "~/components/layout/header/menu/Link.vue";
 
 const props = defineProps({
   title: {

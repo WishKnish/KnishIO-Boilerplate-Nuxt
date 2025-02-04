@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { z } from 'zod'
-import GenericCard from "~/components/cards/GenericCard.vue"
-import MetaInstanceTable from "~/components/tables/MetaInstanceTable.vue";
+import Generic from "~/components/card/Generic.vue"
+import MetaInstance from "~/components/tables/MetaInstance.vue";
 
 const { state, metaQuery } = useKnishIO()
 
@@ -99,7 +99,7 @@ const queryMeta = async () => {
 </script>
 
 <template>
-  <GenericCard
+  <Generic
     title="Meta Query"
     description="Query the Knish.IO ledger to retrieve information about one or more Meta Assets."
     icon="i-heroicons-magnifying-glass-plus"
@@ -191,7 +191,7 @@ const queryMeta = async () => {
           }"
           :rows="10"
       />
-      <MetaInstanceTable
+      <MetaInstance
           v-if="resultData.instances.length > 0"
           :instances="resultData.instances"
       />
@@ -202,5 +202,5 @@ const queryMeta = async () => {
           color="yellow"
       />
     </div>
-  </GenericCard>
+  </Generic>
 </template>

@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import {RouterLink} from "#vue-router";
-import GenericHeaderMenu from "~/components/layout/GenericHeaderMenu.vue";
-import GenericMobileMenuSlideover from "~/components/slideovers/GenericMobileMenuSlideover.vue";
 
 const props = defineProps({
   title: {
@@ -60,7 +58,7 @@ const mobileMenuOpen = ref(false)
           />
         </button>
       </div>
-      <GenericHeaderMenu
+      <LayoutHeaderMenu
         :title="title"
         :menu="menu"
       />
@@ -68,7 +66,7 @@ const mobileMenuOpen = ref(false)
         <a href="#" class="text-sm/6 font-semibold text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
       </div>
     </nav>
-    <GenericMobileMenuSlideover
+    <SlideoverMobile
         :title="title"
         :menu="menu"
         :open="mobileMenuOpen"

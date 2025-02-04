@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import GenericHeaderMobileMenu from "~/components/layout/GenericHeaderMobileMenu.vue";
 
 interface MenuItem {
   name: string
@@ -24,7 +23,7 @@ const emits = defineEmits(['close'])
     :title="props.title"
     @close="$emit('close')"
   >
-    <GenericHeaderMobileMenu
+    <LayoutHeaderMenuMobile
       :title="title"
       :menu="menu"
       @close="$emit('close')"

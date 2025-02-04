@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GenericCard from "~/components/cards/GenericCard.vue"
+import Generic from "~/components/card/Generic.vue"
 
 const { state, requestAuth, canRequestAuth, clientStatus } = useKnishIO()
 
@@ -20,7 +20,7 @@ const handleAuthRequest = async () => {
 </script>
 
 <template>
-  <GenericCard
+  <Generic
       title="Authorization Token"
       description="An authorization token is a temporary API key that is used to authenticate a client session with a Knish.IO anchor node. It must be requested via the Knish.IO client instance."
       icon="i-heroicons-viewfinder-circle"
@@ -64,5 +64,5 @@ const handleAuthRequest = async () => {
         </template>
       </div>
     </div>
-  </GenericCard>
+  </Generic>
 </template>

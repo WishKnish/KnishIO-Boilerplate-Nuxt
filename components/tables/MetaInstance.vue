@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import TerminalSlideover from "~/components/slideovers/TerminalSlideover.vue";
-import MetaDetailsSlideover from "~/components/slideovers/MetaDetailsSlideover.vue";
+import Meta from "~/components/slideover/Meta.vue";
 
 interface Meta {
   molecularHash: string
@@ -59,7 +58,7 @@ const columns = [
 
 const slideover = useSlideover()
 const showDetails = (instance: MetaInstance) => {
-  slideover.open(MetaDetailsSlideover, {currentInstance: instance})
+  slideover.open(Meta, {currentInstance: instance})
 }
 </script>
 
