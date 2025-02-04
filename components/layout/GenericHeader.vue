@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import {RouterLink} from "#vue-router";
-import GenericPageHeaderMenu from "~/components/cards/GenericPageHeaderMenu.vue";
+import GenericHeaderMenu from "~/components/layout/GenericHeaderMenu.vue";
 import GenericMobileMenuSlideover from "~/components/slideovers/GenericMobileMenuSlideover.vue";
 
 const props = defineProps({
@@ -60,7 +60,7 @@ const mobileMenuOpen = ref(false)
           />
         </button>
       </div>
-      <GenericPageHeaderMenu
+      <GenericHeaderMenu
         :title="title"
         :menu="menu"
       />

@@ -2,8 +2,8 @@
 
 import TerminalSlideover from "~/components/slideovers/TerminalSlideover.vue";
 import { useTerminalLogs } from '~/composables/useTerminalLogs'
-import GenericPageHeader from "~/components/cards/GenericPageHeader.vue";
-import GenericPageFooter from "~/components/cards/GenericPageFooter.vue";
+import GenericHeader from "~/components/layout/GenericHeader.vue";
+import GenericFooter from "~/components/layout/GenericFooter.vue";
 
 const { allLogs } = useTerminalLogs()
 const slideover = useSlideover()
@@ -62,7 +62,7 @@ const menu = [
   <UNotifications/>
   <USlideovers/>
 
-  <GenericPageHeader
+  <GenericHeader
       title="Knish.IO SDK Boilerplate Tool"
       :menu="menu"
   />
@@ -71,7 +71,7 @@ const menu = [
     <slot/>
   </UContainer>
 
-  <GenericPageFooter
+  <GenericFooter
     :links="menu"
   />
 </template>

@@ -1,6 +1,6 @@
 <script setup>
-import GenericPageHeaderMenuPopover from "~/components/cards/GenericPageHeaderMenuPopover.vue";
-import GenericPageHeaderMenuLink from "~/components/cards/GenericPageHeaderMenuLink.vue";
+import GenericHeaderMenuPopover from "~/components/layout/GenericHeaderMenuPopover.vue";
+import GenericHeaderMenuLink from "~/components/layout/GenericHeaderMenuLink.vue";
 
 const props = defineProps({
   title: {
@@ -21,7 +21,7 @@ const props = defineProps({
     <component
         v-for="item in menu"
         :key="item.name"
-        :is="item.children ? GenericPageHeaderMenuPopover : GenericPageHeaderMenuLink"
+        :is="item.children ? GenericHeaderMenuPopover : GenericHeaderMenuLink"
         :item="item"
     />
   </div>
