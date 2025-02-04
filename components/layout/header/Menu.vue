@@ -2,7 +2,7 @@
 import GenericHeaderMenuPopover from "~/components/layout/header/menu/Popover.vue";
 import GenericHeaderMenuLink from "~/components/layout/header/menu/Link.vue";
 
-const props = defineProps({
+defineProps({
   title: {
     type: String,
     required: true,

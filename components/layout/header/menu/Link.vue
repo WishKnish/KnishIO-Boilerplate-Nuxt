@@ -1,7 +1,13 @@
-<script setup>
-const props = defineProps({
+<script setup lang="ts">
+
+defineProps({
   item: {
-    type: Object,
+    type: Object as PropType<{
+      name: string,
+      href?: string,
+      icon?: string,
+      onClick?: () => void
+    }>,
     required: true,
   },
 })

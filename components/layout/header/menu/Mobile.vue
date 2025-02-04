@@ -1,8 +1,8 @@
 <script setup>
 import {RouterLink} from "#vue-router";
-import {Dialog, DialogPanel, Disclosure, DisclosureButton, DisclosurePanel} from "@headlessui/vue";
+import {DialogPanel, Disclosure, DisclosureButton, DisclosurePanel} from "@headlessui/vue";
 
-const props = defineProps({
+defineProps({
   title: {
     type: String,
     required: true,
@@ -13,7 +13,7 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['close'])
+defineEmits(['close'])
 
 </script>
 <template>

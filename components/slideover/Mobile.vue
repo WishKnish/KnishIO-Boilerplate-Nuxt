@@ -13,7 +13,7 @@ const props = defineProps<{
   title: string
 }>()
 
-const emits = defineEmits(['close'])
+defineEmits(['close'])
 
 </script>
 

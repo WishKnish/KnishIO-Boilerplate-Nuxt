@@ -4,7 +4,11 @@ import { ref, watch, nextTick } from 'vue'
 const slideover = useSlideover()
 
 const props = defineProps<{
-  logs: Array<{ timestamp: Date | string, type: 'info' | 'error' | 'success', message: string }>
+  logs: Array<{
+    timestamp: Date | string,
+    type: 'info' | 'error' | 'success',
+    message: string
+  }>
 }>()
 
 /**

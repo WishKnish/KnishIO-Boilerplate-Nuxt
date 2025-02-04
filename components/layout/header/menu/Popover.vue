@@ -1,9 +1,25 @@
-<script setup>
+<script setup lang="ts">
 import {RouterLink} from "#vue-router";
 
-const props = defineProps({
+defineProps({
   item: {
-    type: Object,
+    type: Object as PropType<{
+      name: string,
+      href?: string,
+      icon?: string,
+      onClick?: () => void,
+      children?: Array<{
+        name: string,
+        href: string,
+        icon: string,
+        description: string
+      }>,
+      ctas?: Array<{
+        name: string,
+        href: string,
+        icon: string
+      }>
+    }>,
     required: true,
   },
 })
