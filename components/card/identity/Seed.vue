@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { z } from 'zod'
-import Generic from "~/components/card/Generic.vue"
-
 const { state, updateIdentity } = useKnishIO()
 
 /**
@@ -27,7 +25,7 @@ watch(() => formState.seed, (newSeed) => {
 </script>
 
 <template>
-  <Generic
+  <CardBase
       title="Identity Seed"
       description="All Knish.IO identities are based on a seed string. This seed string is used to generate a unique secret and signature hash for each user."
       icon="i-heroicons-key"
@@ -40,5 +38,5 @@ watch(() => formState.seed, (newSeed) => {
         />
       </UFormGroup>
     </UForm>
-  </Generic>
+  </CardBase>
 </template>

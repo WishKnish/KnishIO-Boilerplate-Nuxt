@@ -63,7 +63,7 @@ defineProps({
             />
           </div>
           <router-link
-              :to="child.href"
+              :to="child.href ? child.href : '#'"
               class="mt-6 block font-semibold text-gray-900"
           >
             {{ child.name }}
@@ -91,7 +91,7 @@ defineProps({
             <router-link
                 v-for="cta in item.ctas"
                 :key="cta.name"
-                :to="cta.href"
+                :to="cta.href ? cta.href : '#'"
                 class="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100"
             >
               <UIcon

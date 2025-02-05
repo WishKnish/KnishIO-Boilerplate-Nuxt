@@ -16,7 +16,7 @@ defineProps({
         <router-link
           v-for="link in links"
           :key="link.name"
-          :to="link.href"
+          :to="link.href ? link.href : '#'"
           class="text-gray-300 hover:text-white"
         >
           {{ link.name }}

@@ -97,7 +97,7 @@ const queryMeta = async () => {
 </script>
 
 <template>
-  <CardGeneric
+  <CardBase
     title="Meta Query"
     description="Query the Knish.IO ledger to retrieve information about one or more Meta Assets."
     icon="i-heroicons-magnifying-glass-plus"
@@ -189,7 +189,7 @@ const queryMeta = async () => {
           }"
           :rows="10"
       />
-      <TablesMetaInstance
+      <TableMetaInstance
           v-if="resultData.instances.length > 0"
           :instances="resultData.instances"
       />
@@ -200,5 +200,5 @@ const queryMeta = async () => {
           color="yellow"
       />
     </div>
-  </CardGeneric>
+  </CardBase>
 </template>

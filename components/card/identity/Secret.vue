@@ -1,12 +1,10 @@
 # components/cards/IdentitySecretCard.vue
 <script setup lang="ts">
-import Generic from "~/components/card/Generic.vue"
-
 const {state} = useKnishIO()
 </script>
 
 <template>
-  <Generic
+  <CardBase
       title="Identity Secret"
       description="A Knish.IO secret is a unique string that is used to generate a unique post-quantum signature for each transaction. This secret is generated from the seed string."
       icon="i-heroicons-lock-closed"
@@ -27,5 +25,5 @@ const {state} = useKnishIO()
         />
       </template>
     </UAlert>
-  </Generic>
+  </CardBase>
 </template>

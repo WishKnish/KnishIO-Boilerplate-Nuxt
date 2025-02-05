@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { z } from 'zod'
-import Generic from "~/components/card/Generic.vue"
 
 const { state, updateCell } = useKnishIO()
 
@@ -29,7 +28,7 @@ watch(() => formState.cell, (newCell) => {
 </script>
 
 <template>
-  <Generic
+  <CardBase
       title="Cell Slug"
       description="A 'cell slug' is a unique identifier binding the Knish.IO client session to a specific 'branch' of the ledger, called a 'cell'."
       icon="i-heroicons-rectangle-group"
@@ -39,5 +38,5 @@ watch(() => formState.cell, (newCell) => {
         <UInput v-model="formState.cell" />
       </UFormGroup>
     </UForm>
-  </Generic>
+  </CardBase>
 </template>
